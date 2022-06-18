@@ -597,30 +597,3 @@ model seasons {
 
   @@index([movieId], map: "movieId_1")
 }
-
-model tariffs {
-  id            String @id @default(auto()) @map("_id") @db.ObjectId
-  v             Int    @map("__v")
-  /// Could not determine type: the field only had null or empty values in the sample set.
-  advantages    Json?
-  name          String
-  price         Int
-  /// Multiple data types found: Int: 66.7%, BigInt: 33.3% out of 3 sampled entries
-  requestsLimit Json
-
-  @@index([requestsLimit], map: "requestsLimit_1")
-  @@index([price], map: "price_1")
-}
-
-model users {
-  id           String @id @default(auto()) @map("_id") @db.ObjectId
-  v            Int    @map("__v")
-  email        String @unique(map: "email_1")
-  password     String
-  requestsUsed Int
-  /// Multiple data types found: String: 0.9%, String (ObjectId): 99.1% out of 217 sampled entries
-  tariffId     Json
-  token        String
-
-  @@index([token], map: "token_1")
-}
