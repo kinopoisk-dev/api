@@ -328,13 +328,8 @@ type SeasonsEpisodes {
   number      Int
 }
 
-model Setting {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-}
-
-model collections {
+model collection {
   id           String           @id @default(auto()) @map("_id") @db.ObjectId
-  v            Int              @map("__v")
   collectionId String?          @unique(map: "collectionId_1")
   image        CollectionsImage
   movies       String[]         @db.ObjectId
@@ -345,9 +340,8 @@ model collections {
   @@index([title], map: "title_1")
 }
 
-model images {
+model image {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  v          Int       @map("__v")
   createdAt  DateTime? @db.Date
   height     Int?
   language   String?
@@ -361,23 +355,8 @@ model images {
   @@index([movieId], map: "movieId_1")
 }
 
-model kp_list {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  v         Int      @map("__v")
-  createdAt DateTime @db.Date
-  movieId   Int      @unique(map: "movieId_1")
-  updatedAt DateTime @db.Date
-
-  @@map("kp-list")
-}
-
-model movieids {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-}
-
 model movies {
   id                  String                      @id @default(auto()) @map("_id") @db.ObjectId
-  v                   Int                         @map("__v")
   ageRating           Int?
   alternativeName     String?
   backdrop            MoviesBackdrop?
@@ -471,17 +450,8 @@ model movies {
   @@index([sequelsAndPrequels.id], map: "sequelsAndPrequels.id")
 }
 
-model oldmovies {
-  id   String         @id @default(auto()) @map("_id") @db.ObjectId
-  /// Field referred in an index, but found no data to define the type.
-  data OldmoviesData?
-
-  @@unique([data.id], map: "data.id_1")
-}
-
 model people {
   id          String             @id @default(auto()) @map("_id") @db.ObjectId
-  v           Int                @map("__v")
   age         Int?
   birthPlace  PeopleBirthPlace[]
   birthday    DateTime?          @db.Date
@@ -511,43 +481,8 @@ model people {
   @@index([spouses.id], map: "spouses.id_1")
 }
 
-model persons {
-  id          String              @id @default(auto()) @map("_id") @db.ObjectId
-  v           Int                 @map("__v")
-  age         Int
-  /// Could not determine type: the field only had null or empty values in the sample set.
-  birthPlace  Json?
-  birthday    DateTime?           @db.Date
-  countAwards Int
-  createdAt   DateTime            @db.Date
-  death       DateTime?           @db.Date
-  /// Could not determine type: the field only had null or empty values in the sample set.
-  deathPlace  Json?
-  enName      String
-  facts       PersonsFacts[]
-  growth      Int
-  id_         Int                 @map("id")
-  movies      PersonsMovies[]
-  name        String
-  photo       String
-  profession  PersonsProfession[]
-  sex         String?
-  spouses     PersonsSpouses[]
-  updatedAt   DateTime            @db.Date
-
-  @@index([name], map: "name_1")
-  @@index([sex], map: "sex_1")
-  @@index([birthday], map: "birthday_1")
-  @@index([death], map: "death_1")
-  @@index([age], map: "age_1")
-  @@index([spouses.id], map: "spouses.id_1")
-  @@index([movies.id], map: "movies.id_1")
-}
-
 model review {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
-  v              Int      @map("__v")
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
   author         String
   createdAt      DateTime @db.Date
   date           DateTime @db.Date
@@ -564,29 +499,8 @@ model review {
   @@index([movieId], map: "movieId_1")
 }
 
-model reviews {
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId
-  v              Int       @map("__v")
-  author         String
-  createdAt      DateTime? @db.Date
-  date           DateTime  @db.Date
-  id_            Int       @map("id")
-  movieId        Int
-  review         String
-  reviewDislikes Int?
-  reviewLikes    Int?
-  title          String?
-  type           String?
-  updatedAt      DateTime? @db.Date
-  /// Multiple data types found: Float: 1.2%, Int: 98.8% out of 1000 sampled entries
-  userRating     Json
-
-  @@index([movieId], map: "movieId_1")
-}
-
-model seasons {
+model season {
   id            String            @id @default(auto()) @map("_id") @db.ObjectId
-  v             Int               @map("__v")
   createdAt     DateTime?         @db.Date
   episodes      SeasonsEpisodes[]
   episodesCount Int
