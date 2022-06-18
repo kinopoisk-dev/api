@@ -372,13 +372,11 @@ model kp_list {
 }
 
 model movieids {
-  id String @id @unique(map: "id_1") @default(auto()) @map("_id") @db.ObjectId
-  /// Field referred in an index, but found no data to define the type.
-  id Json?  @id @unique(map: "id_1")
+  id String @id @default(auto()) @map("_id") @db.ObjectId
 }
 
 model movies {
-  id                  String                      @id @unique(map: "id_1") @default(auto()) @map("_id") @db.ObjectId
+  id                  String                      @id @default(auto()) @map("_id") @db.ObjectId
   v                   Int                         @map("__v")
   ageRating           Int?
   alternativeName     String?
@@ -482,7 +480,7 @@ model oldmovies {
 }
 
 model people {
-  id          String             @id @unique(map: "id_1") @default(auto()) @map("_id") @db.ObjectId
+  id          String             @id @default(auto()) @map("_id") @db.ObjectId
   v           Int                @map("__v")
   age         Int?
   birthPlace  PeopleBirthPlace[]
@@ -514,7 +512,7 @@ model people {
 }
 
 model persons {
-  id          String              @id @unique(map: "id_1") @default(auto()) @map("_id") @db.ObjectId
+  id          String              @id @default(auto()) @map("_id") @db.ObjectId
   v           Int                 @map("__v")
   age         Int
   /// Could not determine type: the field only had null or empty values in the sample set.
@@ -547,7 +545,8 @@ model persons {
 }
 
 model review {
-  id             String   @id @unique(map: "id_1") @default(auto()) @map("_id") @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
   v              Int      @map("__v")
   author         String
   createdAt      DateTime @db.Date
@@ -566,7 +565,7 @@ model review {
 }
 
 model reviews {
-  id             String    @id @unique(map: "id_1") @default(auto()) @map("_id") @db.ObjectId
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
   v              Int       @map("__v")
   author         String
   createdAt      DateTime? @db.Date
