@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,4 +5,622 @@ generator client {
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
+}
+
+type CollectionsImage {
+  url String?
+}
+
+type MoviesBackdrop {
+  id         String? @map("_id") @db.ObjectId
+  previewUrl String?
+  url        String?
+}
+
+type MoviesBudget {
+  id       String? @map("_id") @db.ObjectId
+  currency String?
+  /// Multiple data types found: Int: 99.2%, BigInt: 0.8% out of 125 sampled entries
+  value    Json?
+}
+
+type MoviesCountries {
+  id   String @map("_id") @db.ObjectId
+  name String
+}
+
+type MoviesDistributors {
+  distributor        String?
+  distributorRelease String?
+}
+
+type MoviesExternalId {
+  id   String? @map("_id") @db.ObjectId
+  imdb String?
+  tmdb Int?
+  /// Field referred in an index, but found no data to define the type.
+  kpHD Json?
+}
+
+type MoviesFacts {
+  id      String   @map("_id") @db.ObjectId
+  spoiler Boolean?
+  type    String?
+  value   String
+}
+
+type MoviesFees {
+  id     String            @map("_id") @db.ObjectId
+  usa    MoviesFeesUsa?
+  world  MoviesFeesWorld?
+  /// Field referred in an index, but found no data to define the type.
+  russia MoviesFeesRussia?
+}
+
+type MoviesFeesRussia {
+  /// Field referred in an index, but found no data to define the type.
+  value Json?
+}
+
+type MoviesFeesUsa {
+  id       String @map("_id") @db.ObjectId
+  currency String
+  value    Int
+}
+
+type MoviesFeesWorld {
+  id       String @map("_id") @db.ObjectId
+  currency String
+  value    Int
+}
+
+type MoviesGenres {
+  id   String @map("_id") @db.ObjectId
+  name String
+}
+
+type MoviesImages {
+  backdropsCount Int?
+  framesCount    Int
+  postersCount   Int?
+}
+
+type MoviesImagesInfo {
+  id          String @map("_id") @db.ObjectId
+  framesCount Int
+}
+
+type MoviesLogo {
+  id  String  @map("_id") @db.ObjectId
+  url String?
+}
+
+type MoviesNames {
+  id   String @map("_id") @db.ObjectId
+  name String
+}
+
+type MoviesNetworks {
+  name       String
+  previewUrl String
+  url        String
+}
+
+type MoviesPersons {
+  id           String  @map("_id") @db.ObjectId
+  description  String?
+  enName       String?
+  enProfession String
+  id_          Int     @map("id")
+  name         String?
+  photo        String
+  profession   String?
+}
+
+type MoviesPoster {
+  id         String? @map("_id") @db.ObjectId
+  previewUrl String
+  url        String
+}
+
+type MoviesPremiere {
+  id      String?   @map("_id") @db.ObjectId
+  bluray  DateTime? @db.Date
+  cinema  DateTime? @db.Date
+  country String?
+  digital DateTime? @db.Date
+  dvd     DateTime? @db.Date
+  russia  DateTime? @db.Date
+  world   DateTime? @db.Date
+}
+
+type MoviesProductionCompanies {
+  id         String  @map("_id") @db.ObjectId
+  name       String
+  previewUrl String?
+  url        String?
+}
+
+type MoviesRating {
+  id                 String? @map("_id") @db.ObjectId
+  /// Multiple data types found: Float: 1.6%, Int: 98.4% out of 989 sampled entries
+  await              Json?
+  /// Multiple data types found: Float: 2.7%, Int: 97.3% out of 989 sampled entries
+  filmCritics        Json?
+  /// Multiple data types found: Float: 40.6%, Int: 59.4% out of 1000 sampled entries
+  imdb               Json
+  /// Multiple data types found: Float: 9.7%, Int: 90.3% out of 1000 sampled entries
+  kp                 Json
+  /// Multiple data types found: Float: 0.5%, Int: 99.5% out of 989 sampled entries
+  russianFilmCritics Json?
+  /// Multiple data types found: Float: 50%, Int: 50% out of 4 sampled entries
+  tmdb               Json?
+}
+
+type MoviesSeasonsInfo {
+  id            String @map("_id") @db.ObjectId
+  episodesCount Int
+  number        Int
+}
+
+type MoviesSequelsAndPrequels {
+  id              String                          @map("_id") @db.ObjectId
+  alternativeName String?
+  enName          String?
+  id_             Int?                            @map("id")
+  name            String?
+  poster          MoviesSequelsAndPrequelsPoster?
+  type            String?
+}
+
+type MoviesSequelsAndPrequelsPoster {
+  id         String @map("_id") @db.ObjectId
+  previewUrl String
+  url        String
+}
+
+type MoviesSimilarMovies {
+  id              String                    @map("_id") @db.ObjectId
+  alternativeName String?
+  enName          String?
+  id_             Int                       @map("id")
+  name            String
+  poster          MoviesSimilarMoviesPoster
+}
+
+type MoviesSimilarMoviesPoster {
+  id         String @map("_id") @db.ObjectId
+  previewUrl String
+  url        String
+}
+
+type MoviesSpokenLanguages {
+  id     String @map("_id") @db.ObjectId
+  name   String
+  nameEn String
+}
+
+type MoviesTechnology {
+  id      String  @map("_id") @db.ObjectId
+  has3D   Boolean
+  hasImax Boolean
+}
+
+type MoviesVideos {
+  id       String?                @map("_id") @db.ObjectId
+  teasers  MoviesVideosTeasers[]
+  trailers MoviesVideosTrailers[]
+}
+
+type MoviesVideosTeasers {
+  id   String @map("_id") @db.ObjectId
+  name String
+  site String
+  size Int
+  type String
+  url  String
+}
+
+type MoviesVideosTrailers {
+  id   String  @map("_id") @db.ObjectId
+  name String
+  site String
+  size Int?
+  type String?
+  url  String
+}
+
+type MoviesVotes {
+  id                 String? @map("_id") @db.ObjectId
+  await              Int?
+  filmCritics        Int?
+  imdb               Int
+  kp                 Int
+  russianFilmCritics Int?
+  tmdb               Int?
+}
+
+type OldmoviesData {
+  /// Field referred in an index, but found no data to define the type.
+  id Json?
+}
+
+type PeopleBirthPlace {
+  id    String @map("_id") @db.ObjectId
+  value String
+}
+
+type PeopleDeathPlace {
+  id    String @map("_id") @db.ObjectId
+  value String
+}
+
+type PeopleFacts {
+  id    String @map("_id") @db.ObjectId
+  value String
+}
+
+type PeopleMovies {
+  id              String  @map("_id") @db.ObjectId
+  alternativeName String?
+  description     String?
+  general         Boolean
+  id_             Int     @map("id")
+  name            String?
+  /// Multiple data types found: Float: 80.5%, Int: 19.5% out of 12253 sampled entries
+  rating          Json?
+}
+
+type PeopleProfession {
+  id    String @map("_id") @db.ObjectId
+  value String
+}
+
+type PeopleSpouses {
+  id             String? @map("_id") @db.ObjectId
+  children       Int
+  divorced       Boolean
+  divorcedReason String
+  id_            Int     @map("id")
+  name           String
+  relation       String
+  sex            String?
+}
+
+type PersonsFacts {
+  id    String @map("_id") @db.ObjectId
+  value String
+}
+
+type PersonsMovies {
+  id          String  @map("_id") @db.ObjectId
+  description String
+  general     Boolean
+  id_         Int     @map("id")
+  name        String?
+  /// Multiple data types found: Float: 90.1%, Int: 9.9% out of 36846 sampled entries
+  rating      Json?
+}
+
+type PersonsProfession {
+  id    String @map("_id") @db.ObjectId
+  value String
+}
+
+type PersonsSpouses {
+  id             String  @map("_id") @db.ObjectId
+  children       Int
+  divorced       Boolean
+  divorcedReason String
+  id_            Int     @map("id")
+  name           String
+  relation       String
+  sex            String?
+}
+
+type SeasonsEpisodes {
+  id          String  @map("_id") @db.ObjectId
+  /// Multiple data types found: String: 11.6%, DateTime (Date): 88.4% out of 26280 sampled entries
+  date        Json?
+  description String?
+  enName      String?
+  name        String?
+  number      Int
+}
+
+model Setting {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+}
+
+model collections {
+  id           String           @id @default(auto()) @map("_id") @db.ObjectId
+  v            Int              @map("__v")
+  collectionId String?          @unique(map: "collectionId_1")
+  image        CollectionsImage
+  movies       String[]         @db.ObjectId
+  sortRange    Int
+  title        String?
+  updateDates  DateTime[]       @db.Date
+
+  @@index([title], map: "title_1")
+}
+
+model images {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  v          Int       @map("__v")
+  createdAt  DateTime? @db.Date
+  height     Int?
+  language   String?
+  movieId    Int
+  previewUrl String
+  type       String
+  updatedAt  DateTime? @db.Date
+  url        String    @unique(map: "url_1")
+  width      Int?
+
+  @@index([movieId], map: "movieId_1")
+}
+
+model kp_list {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  v         Int      @map("__v")
+  createdAt DateTime @db.Date
+  movieId   Int      @unique(map: "movieId_1")
+  updatedAt DateTime @db.Date
+
+  @@map("kp-list")
+}
+
+model movieids {
+  id String @id @unique(map: "id_1") @default(auto()) @map("_id") @db.ObjectId
+  /// Field referred in an index, but found no data to define the type.
+  id Json?  @id @unique(map: "id_1")
+}
+
+model movies {
+  id                  String                      @id @unique(map: "id_1") @default(auto()) @map("_id") @db.ObjectId
+  v                   Int                         @map("__v")
+  ageRating           Int?
+  alternativeName     String?
+  backdrop            MoviesBackdrop?
+  budget              MoviesBudget?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  collections         Json?
+  countries           MoviesCountries[]
+  createdAt           DateTime?                   @db.Date
+  description         String?
+  distributors        MoviesDistributors?
+  enName              String?
+  externalId          MoviesExternalId
+  facts               MoviesFacts[]
+  fees                MoviesFees?
+  genres              MoviesGenres[]
+  id_                 Int                         @map("id")
+  images              MoviesImages?
+  imagesInfo          MoviesImagesInfo?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  lists               Json?
+  logo                MoviesLogo?
+  movieLength         Int?
+  name                String?
+  names               MoviesNames[]
+  networks            MoviesNetworks[]
+  persons             MoviesPersons[]
+  poster              MoviesPoster
+  premiere            MoviesPremiere?
+  productionCompanies MoviesProductionCompanies[]
+  rating              MoviesRating
+  ratingMpaa          String?
+  seasonsInfo         MoviesSeasonsInfo[]
+  sequelsAndPrequels  MoviesSequelsAndPrequels[]
+  shortDescription    String?
+  similarMovies       MoviesSimilarMovies[]
+  slogan              String?
+  spokenLanguages     MoviesSpokenLanguages[]
+  status              String?
+  subType             String?
+  technology          MoviesTechnology?
+  ticketsOnSale       Boolean?
+  type                String
+  typeNumber          Int?
+  updateDates         DateTime[]                  @db.Date
+  updatedAt           DateTime                    @db.Date
+  videos              MoviesVideos?
+  votes               MoviesVotes
+  year                Int?
+  /// Field referred in an index, but found no data to define the type.
+  ratingAgeLimits     Json?
+
+  @@index([externalId.imdb], map: "externalId.imdb_1")
+  @@index([externalId.tmdb], map: "externalId.tmdb_1")
+  @@index([alternativeName], map: "alternativeName_1")
+  @@index([enName], map: "enName_1")
+  @@index([names.name], map: "names.name_1")
+  @@index([typeNumber], map: "typeNumber_1")
+  @@index([subType], map: "subType_1")
+  @@index([status], map: "status_1")
+  @@index([year], map: "year_1")
+  @@index([rating.kp], map: "rating.kp_1")
+  @@index([rating.imdb], map: "rating.imdb_1")
+  @@index([rating.tmdb], map: "rating.tmdb_1")
+  @@index([votes.kp], map: "votes.kp_1")
+  @@index([votes.imdb], map: "votes.imdb_1")
+  @@index([votes.tmdb], map: "votes.tmdb_1")
+  @@index([ratingAgeLimits], map: "ratingAgeLimits_1")
+  @@index([genres.name], map: "genres.name_1")
+  @@index([countries.name], map: "countries.name_1")
+  @@index([networks.name], map: "networks.name_1")
+  @@index([persons.id], map: "persons.id_1")
+  @@index([budget.value], map: "budget.value_1")
+  @@index([fees.world.value], map: "fees.world.value_1")
+  @@index([fees.russia.value], map: "fees.russia.value_1")
+  @@index([fees.usa.value], map: "fees.usa.value_1")
+  @@index([premiere.world], map: "premiere.world_1")
+  @@index([premiere.russia], map: "premiere.russia_1")
+  @@index([premiere.digital], map: "premiere.digital_1")
+  @@index([externalId.kpHD], map: "externalId.kpHD_1")
+  @@index([type], map: "type_1")
+  @@index([name], map: "name_1")
+  @@index([externalId], map: "externalId_1")
+  @@index([rating.filmCritics], map: "rating.filmCritics_1")
+  @@index([rating.russianFilmCritics], map: "rating.russianFilmCritics_1")
+  @@index([rating.await], map: "rating.await_1")
+  @@index([votes.filmCritics], map: "votes.filmCritics_1")
+  @@index([votes.russianFilmCritics], map: "votes.russianFilmCritics_1")
+  @@index([votes.await], map: "votes.await_1")
+  @@index([productionCompanies.name], map: "productionCompanies.name_1")
+  @@index([similarMovies.id], map: "similarMovies.id")
+  @@index([sequelsAndPrequels.id], map: "sequelsAndPrequels.id")
+}
+
+model oldmovies {
+  id   String         @id @default(auto()) @map("_id") @db.ObjectId
+  /// Field referred in an index, but found no data to define the type.
+  data OldmoviesData?
+
+  @@unique([data.id], map: "data.id_1")
+}
+
+model people {
+  id          String             @id @unique(map: "id_1") @default(auto()) @map("_id") @db.ObjectId
+  v           Int                @map("__v")
+  age         Int?
+  birthPlace  PeopleBirthPlace[]
+  birthday    DateTime?          @db.Date
+  countAwards Int?
+  createdAt   DateTime?          @db.Date
+  death       DateTime?          @db.Date
+  deathPlace  PeopleDeathPlace[]
+  enName      String?
+  facts       PeopleFacts[]
+  growth      Int?
+  id_         Int                @map("id")
+  isParse     Boolean?
+  movies      PeopleMovies[]
+  name        String?
+  photo       String
+  profession  PeopleProfession[]
+  sex         String?
+  spouses     PeopleSpouses[]
+  updatedAt   DateTime?          @db.Date
+
+  @@index([sex], map: "sex_1")
+  @@index([birthday], map: "birthday_1")
+  @@index([death], map: "death_1")
+  @@index([age], map: "age_1")
+  @@index([movies.id], map: "movies.id_1")
+  @@index([name], map: "name_1")
+  @@index([spouses.id], map: "spouses.id_1")
+}
+
+model persons {
+  id          String              @id @unique(map: "id_1") @default(auto()) @map("_id") @db.ObjectId
+  v           Int                 @map("__v")
+  age         Int
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  birthPlace  Json?
+  birthday    DateTime?           @db.Date
+  countAwards Int
+  createdAt   DateTime            @db.Date
+  death       DateTime?           @db.Date
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  deathPlace  Json?
+  enName      String
+  facts       PersonsFacts[]
+  growth      Int
+  id_         Int                 @map("id")
+  movies      PersonsMovies[]
+  name        String
+  photo       String
+  profession  PersonsProfession[]
+  sex         String?
+  spouses     PersonsSpouses[]
+  updatedAt   DateTime            @db.Date
+
+  @@index([name], map: "name_1")
+  @@index([sex], map: "sex_1")
+  @@index([birthday], map: "birthday_1")
+  @@index([death], map: "death_1")
+  @@index([age], map: "age_1")
+  @@index([spouses.id], map: "spouses.id_1")
+  @@index([movies.id], map: "movies.id_1")
+}
+
+model review {
+  id             String   @id @unique(map: "id_1") @default(auto()) @map("_id") @db.ObjectId
+  v              Int      @map("__v")
+  author         String
+  createdAt      DateTime @db.Date
+  date           DateTime @db.Date
+  id_            Int      @map("id")
+  movieId        Int
+  review         String
+  reviewDislikes Int
+  reviewLikes    Int
+  title          String?
+  updatedAt      DateTime @db.Date
+  /// Multiple data types found: Float: 2%, Int: 98% out of 1000 sampled entries
+  userRating     Json
+
+  @@index([movieId], map: "movieId_1")
+}
+
+model reviews {
+  id             String    @id @unique(map: "id_1") @default(auto()) @map("_id") @db.ObjectId
+  v              Int       @map("__v")
+  author         String
+  createdAt      DateTime? @db.Date
+  date           DateTime  @db.Date
+  id_            Int       @map("id")
+  movieId        Int
+  review         String
+  reviewDislikes Int?
+  reviewLikes    Int?
+  title          String?
+  type           String?
+  updatedAt      DateTime? @db.Date
+  /// Multiple data types found: Float: 1.2%, Int: 98.8% out of 1000 sampled entries
+  userRating     Json
+
+  @@index([movieId], map: "movieId_1")
+}
+
+model seasons {
+  id            String            @id @default(auto()) @map("_id") @db.ObjectId
+  v             Int               @map("__v")
+  createdAt     DateTime?         @db.Date
+  episodes      SeasonsEpisodes[]
+  episodesCount Int
+  movieId       Int
+  number        Int
+  updatedAt     DateTime?         @db.Date
+
+  @@index([movieId], map: "movieId_1")
+}
+
+model tariffs {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  v             Int    @map("__v")
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  advantages    Json?
+  name          String
+  price         Int
+  /// Multiple data types found: Int: 66.7%, BigInt: 33.3% out of 3 sampled entries
+  requestsLimit Json
+
+  @@index([requestsLimit], map: "requestsLimit_1")
+  @@index([price], map: "price_1")
+}
+
+model users {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  v            Int    @map("__v")
+  email        String @unique(map: "email_1")
+  password     String
+  requestsUsed Int
+  /// Multiple data types found: String: 0.9%, String (ObjectId): 99.1% out of 217 sampled entries
+  tariffId     Json
+  token        String
+
+  @@index([token], map: "token_1")
 }
