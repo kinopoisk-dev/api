@@ -7,6 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Movie enums
 enum MovieType {
   ANIMATED_SERIES // Мульт-сериал
   ANIME // Аниме
@@ -303,6 +304,214 @@ enum Country {
   JAPAN // Япония
 }
 
+enum Language {
+  AFAR
+  ABKHAZIAN
+  AFRIKAANS
+  AKAN
+  ALBANIAN
+  AMHARIC
+  ARABIC
+  ARAGONESE
+  ARMENIAN
+  ASSAMESE
+  AVARIC
+  AYMARA
+  AZERBAIJANI
+  BAMBARA
+  BASHKIR
+  BASQUE
+  BELARUSIAN
+  BENGALI
+  BISLAMA
+  BOSNIAN
+  BRETON
+  BULGARIAN
+  BURMESE
+  CANTONESE
+  CATALAN
+  CHAMORRO
+  CHECHEN
+  CHICHEWA_NYANJA
+  CORNISH
+  CORSICAN
+  CREE
+  CROATIAN
+  CZECH
+  DANISH
+  DIVEHI
+  DUTCH
+  DZONGKHA
+  ENGLISH
+  ESPERANTO
+  ESTONIAN
+  FAROESE
+  FIJIAN
+  FINNISH
+  FRENCH
+  FRISIAN
+  FULAH
+  GAELIC
+  GALICIAN
+  GANDA
+  GEORGIAN
+  GERMAN
+  GREEK
+  GUARANI
+  GUJARATI
+  HAITIAN_HAITIAN_CREOLE
+  HAUSA
+  HEBREW
+  HERERO
+  HINDI
+  HIRI_MOTU
+  HUNGARIAN
+  ICELANDIC
+  IGBO
+  INDONESIAN
+  INTERLINGUA
+  INTERLINGUE
+  INUKTITUT
+  INUPIAQ
+  IRISH
+  ITALIAN
+  JAPANESE
+  JAVANESE
+  KALAALLISUT
+  KANNADA
+  KASHMIRI
+  KAZAKH
+  KHMER
+  KIKUYU
+  KINYARWANDA
+  KIRGHIZ
+  KOREAN
+  KURDISH
+  LAO
+  LATIN
+  LATVIAN
+  LETZEBURGESCH
+  LINGALA
+  LITHUANIAN
+  MACEDONIAN
+  MALAGASY
+  MALAY
+  MALAYALAM
+  MALTESE
+  MANDARIN
+  MAORI
+  MARATHI
+  MARSHALL
+  MOLDAVIAN
+  MONGOLIAN
+  NAURU
+  NAVAJO
+  NEPALI
+  NO_LANGUAGE
+  NORTHERN_SAMI
+  NORWEGIAN
+  NORWEGIAN_BOKMAL
+  NORWEGIAN_NYNORSK
+  OCCITAN
+  OJIBWA
+  ORIYA
+  OROMO
+  OSSETIAN_OSSETIC
+  PALI
+  PERSIAN
+  POLISH
+  PORTUGUESE
+  PUNJABI
+  PUSHTO
+  QUECHUA
+  RAETO_ROMANCE
+  ROMANIAN
+  RUNDI
+  RUSSIAN
+  SAMOAN
+  SANGO
+  SANSKRIT
+  SARDINIAN
+  SERBIAN
+  SERBO_CROATIAN
+  SHONA
+  SINDHI
+  SINHALESE
+  SLAVIC
+  SLOVAK
+  SLOVENIAN
+  SOMALI
+  SOTHO
+  SPANISH
+  SUNDANESE
+  SWAHILI
+  SWATI
+  SWEDISH
+  TAGALOG
+  TAHITIAN
+  TAJIK
+  TAMIL
+  TATAR
+  TELUGU
+  THAI
+  TIBETAN
+  TIGRINYA
+  TONGA
+  TSWANA
+  TURKISH
+  TURKMEN
+  TWI
+  UIGHUR
+  UKRAINIAN
+  URDU
+  UZBEK
+  VENDA
+  VIETNAMESE
+  WALLOON
+  WELSH
+  WOLOF
+  XHOSA
+  YI
+  YIDDISH
+  YORUBA
+  ZULU
+}
+
+// Person enums
+enum ProfessionType {
+  ACTOR // Актер
+  NOT_LISTED_IN_THE_CREDITS // В титрах не указаны
+  BAND_CHRONICLE // Группа: Хроника
+  BAND_PLAYING_THEMSELVES // Группа: играют самих себя
+  DIRECTOR // Режиссер
+  COMPOSER // Композитор
+  EDITOR // Монтажер
+  VOICE_DIRECTOR // Звукорежиссер
+  OPERATOR // Оператор
+  TRANSLATOR // Переводчик
+  PRODUCER // Продюсер
+  WRITER // Сценарист
+  PRODUCTION_DESIGNER // Художник-постановщик
+  PRODUCER_USSR // Продюссер СССР
+}
+
+enum DivorcedReason {
+  ANNULLED // Аннулирован
+  DIVORCE // Развод
+  DIED // Смерть
+}
+
+enum PersonRelation {
+  HUSBAND // Супруг
+  WIFE // Супруга
+}
+
+enum PersonSex {
+  Male // Мужской
+  Female // Женский
+}
+
+// Image enums
 enum ImageType {
   BACKDROP
   POSTER
@@ -310,6 +519,18 @@ enum ImageType {
   LOGO
 }
 
+// Video enums
+enum VideoType {
+  TRAILER
+  TEASER
+}
+
+enum VideoSource {
+  YOUTUBE
+  YANDEX
+}
+
+// Movie types
 type CollectionsImage {
   url String?
 }
@@ -344,51 +565,15 @@ type MovieExternalId {
   kpHD String?
 }
 
-type MovieFacts {
-  spoiler Boolean?
-  type    String?
-  value   String
-}
-
 type MovieFees {
-  usa    MovieFeesUsa?
-  world  MovieFeesWorld?
-  russia MovieFeesRussia?
+  usa    MovieFeesItem?
+  world  MovieFeesItem?
+  russia MovieFeesItem?
 }
 
-type MovieFeesRussia {
-  /// Field referred in an index, but found no data to define the type.
-  value Int?
-}
-
-type MovieFeesUsa {
+type MovieFeesItem {
   currency String
   value    Int
-}
-
-type MovieFeesWorld {
-  currency String
-  value    Int
-}
-
-type MovieNetworks {
-  name       String
-  previewUrl String
-  url        String
-}
-
-type MoviePersons {
-  description  String?
-  enName       String?
-  enProfession String
-  name         String?
-  photo        String
-  profession   String?
-}
-
-type MoviePoster {
-  previewUrl String
-  url        String
 }
 
 type MoviePremiere {
@@ -401,12 +586,6 @@ type MoviePremiere {
   world   DateTime? @db.Date
 }
 
-type MovieProductionCompanies {
-  name       String
-  previewUrl String?
-  url        String?
-}
-
 type MovieRating {
   kp                 Float
   imdb               Float
@@ -416,65 +595,9 @@ type MovieRating {
   tmdb               Float?
 }
 
-type MovieSeasonsInfo {
-  episodesCount Int
-  number        Int
-}
-
-type MovieSequelsAndPrequels {
-  alternativeName String?
-  enName          String?
-  name            String?
-  poster          MovieSequelsAndPrequelsPoster?
-  type            String?
-}
-
-type MovieSequelsAndPrequelsPoster {
-  previewUrl String
-  url        String
-}
-
-type MovieSimilarMovies {
-  alternativeName String?
-  enName          String?
-  name            String
-  poster          MovieSimilarMoviesPoster
-}
-
-type MovieSimilarMoviesPoster {
-  previewUrl String
-  url        String
-}
-
-type MovieSpokenLanguages {
-  name   String
-  nameEn String
-}
-
 type MovieTechnology {
   has3D   Boolean
   hasImax Boolean
-}
-
-type MovieVideos {
-  teasers  MovieVideosTeasers[]
-  trailers MovieVideosTrailers[]
-}
-
-type MovieVideosTeasers {
-  name String
-  site String
-  size Int
-  type String
-  url  String
-}
-
-type MovieVideosTrailers {
-  name String
-  site String
-  size Int?
-  type String?
-  url  String
 }
 
 type MovieVotes {
@@ -486,69 +609,18 @@ type MovieVotes {
   tmdb               Int?
 }
 
-type OldmoviesData {
-  /// Field referred in an index, but found no data to define the type.
-  id Json?
-}
-
-type PersonBirthPlace {
-  value String
-}
-
-type PersonDeathPlace {
-  value String
-}
-
-type PersonFacts {
-  value String
-}
-
-type PersonMovies {
-  alternativeName String?
-  description     String?
-  general         Boolean
-  name            String?
-  rating          Float?
-}
-
-type PersonProfession {
-  value String
-}
-
+// Person types
 type PersonSpouses {
   children       Int
   divorced       Boolean
-  divorcedReason String
+  divorcedReason DivorcedReason
   name           String
-  relation       String
-  sex            String?
+  relation       PersonRelation
+  sex            PersonSex?
 }
 
-type PersonsFacts {
-  value String
-}
-
-type PersonsMovies {
-  description String
-  general     Boolean
-  name        String?
-  rating      Float?
-}
-
-type PersonsProfession {
-  value String
-}
-
-type PersonsSpouses {
-  children       Int
-  divorced       Boolean
-  divorcedReason String
-  name           String
-  relation       String
-  sex            String?
-}
-
-type SeasonsEpisodes {
+// Season types
+type SeasonEpisode {
   date        DateTime?
   description String?
   enName      String?
@@ -556,20 +628,41 @@ type SeasonsEpisodes {
   number      Int
 }
 
-model collection {
-  id           String           @id @default(auto()) @map("_id") @db.ObjectId
-  collectionId String?          @unique(map: "collectionId_1")
-  image        CollectionsImage
-  movies       String[]         @db.ObjectId
-  sortRange    Int
-  title        String?
-  updateDates  DateTime[]       @db.Date
+model Collection {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  kpHdCollectionId String   @unique()
+  // String properties
+  image            String
+  title            String?
+  // Int properties
+  sortRange        Int
+  // Date proprties
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  // Relations
+  movies           Movie[]  @relation(fields: [movieIds], references: [id])
+  movieIds         String[] @db.ObjectId
+}
 
-  @@index([title], map: "title_1")
+model Video {
+  id      String      @id @default(auto()) @map("_id") @db.ObjectId
+  kpId    Int
+  // String properties
+  name    String
+  url     String      @unique()
+  // Int properties
+  size    Int?
+  // Enum properties
+  source  VideoSource
+  type    VideoType?
+  // Relations
+  movie   Movie       @relation(fields: [movieId], references: [id])
+  movieId String      @db.ObjectId
 }
 
 model Image {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  movieKpId  Int
   // String properties
   url        String    @unique()
   language   String?
@@ -585,112 +678,166 @@ model Image {
   updatedAt  DateTime  @updatedAt
   // Relations
   movie      Movie     @relation(fields: [movieId], references: [id])
-  movieId    String    @db.ObjectId
+  movieId    String    @unique @db.ObjectId
+}
 
-  @@index([movieId])
+model Season {
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  movieKpId     Int
+  // Int properties
+  episodesCount Int
+  number        Int
+  // Type properties
+  episodes      SeasonEpisode[]
+  // Date proprties
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  // Relations
+  movie         Movie           @relation(fields: [movieId], references: [id])
+  movieId       String          @db.ObjectId
+}
+
+model Review {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  kpMovieId      Int
+  // String properties
+  author         String
+  review         String
+  title          String?
+  // Int properties
+  reviewDislikes Int
+  reviewLikes    Int
+  userRating     Int
+  // Date proprties
+  date           DateTime @db.Date
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  // Relations
+  movie          Movie    @relation(fields: [movieId], references: [id])
+  movieId        String   @db.ObjectId
+}
+
+model Person {
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  kpId        Int              @unique
+  // String properties
+  enName      String?
+  name        String?
+  photo       String
+  sex         PersonSex?
+  birthPlace  String[]
+  deathPlace  String[]
+  // Int properties
+  age         Int?
+  countAwards Int?
+  growth      Int?
+  // Enum properties
+  profession  ProfessionType[]
+  // Type properties
+  spouses     PersonSpouses[]
+  // Date proprties
+  birthday    DateTime?        @db.Date
+  death       DateTime?        @db.Date
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  // Relations
+  movies      MovieOnPerson[]
+  facts       PersonFact[]
+}
+
+model MovieOnPerson {
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  kpId        Int              @unique
+  kpMovieId   Int
+  // String properties
+  description String
+  // Enum properties
+  profession  ProfessionType[]
+  // Date proprties
+  assignedAt  DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  // Relations
+  movie       Movie            @relation(fields: [movieId], references: [id])
+  movieId     String           @db.ObjectId
+  person      Person           @relation(fields: [personId], references: [id])
+  personId    String           @db.ObjectId
+}
+
+model PersonFact {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  personKpId Int
+  value      String
+  // Date proprties
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  // Relations
+  personId   String   @db.ObjectId
+  person     Person   @relation(fields: [personId], references: [id])
+}
+
+model MovieFact {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  movieKpId Int
+  spoiler   Boolean?
+  type      String?
+  value     String
+  // Date proprties
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // Relations
+  movie     Movie    @relation(fields: [movieId], references: [id])
+  movieId   String   @db.ObjectId
 }
 
 model Movie {
   // Id properties
-  id                  String                     @id @default(auto()) @map("_id") @db.ObjectId
-  kpId                int                        @unique
-  externalId          MovieExternalId
+  id                            String             @id @default(auto()) @map("_id") @db.ObjectId
+  kpId                          Int                @unique
+  externalId                    MovieExternalId
   // String properties
-  name                String?
-  names               String[]
-  enName              String?
-  alternativeName     String?
-  description         String?
-  ratingMpaa          String?
-  shortDescription    String?
-  slogan              String?
+  name                          String?
+  names                         String[]
+  enName                        String?
+  alternativeName               String?
+  description                   String?
+  ratingMpaa                    String?
+  shortDescription              String?
+  slogan                        String?
   //Int properties
-  year                Int?
-  movieLength         Int?
-  ageRating           Int?
+  year                          Int?
+  movieLength                   Int?
+  ageRating                     Int?
   // Enum properties
-  type                MovieType?
-  status              MovieStatus?
-  genres              MovieGenre[]
-  countries           Country[]
+  type                          MovieType?
+  status                        MovieStatus?
+  genres                        MovieGenre[]
+  countries                     Country[]
+  spokenLanguages               Language[]
   // Type properties
-  poster              MoviePoster
-  backdrop            MovieBackdrop?
-  budget              MovieBudget?
-  logo                MovieLogo?
-  distributors        MovieDistributors?
-  votes               MovieVotes
-  facts               MovieFacts[]
-  fees                MovieFees?
-  networks            MovieNetworks[]
-  premiere            MoviePremiere?
-  technology          MovieTechnology?
-  spokenLanguages     MovieSpokenLanguages[]
-  productionCompanies MovieProductionCompanies[]
-  persons             MoviePersons[]
-  rating              MovieRating
-  seasonsInfo         MovieSeasonsInfo[]
-  sequelsAndPrequels  MovieSequelsAndPrequels[]
-  similarMovies       MovieSimilarMovies[]
-  videos              MovieVideos?
+  rating                        MovieRating
+  budget                        MovieBudget?
+  distributors                  MovieDistributors?
+  votes                         MovieVotes
+  fees                          MovieFees?
+  premiere                      MoviePremiere?
+  technology                    MovieTechnology?
   // Date proprties
-  createdAt           DateTime                   @default(now())
-  updatedAt           DateTime                   @updatedAt
+  createdAt                     DateTime           @default(now())
+  updatedAt                     DateTime           @updatedAt
   // Relations
-  images              Image[]
-}
-
-model Person {
-  id          String             @id @default(auto()) @map("_id") @db.ObjectId
-  kpId        int                @unique
-  age         Int?
-  birthPlace  PersonBirthPlace[]
-  birthday    DateTime?          @db.Date
-  countAwards Int?
-  createdAt   DateTime?          @db.Date
-  death       DateTime?          @db.Date
-  deathPlace  PersonDeathPlace[]
-  enName      String?
-  facts       PersonFacts[]
-  growth      Int?
-  isParse     Boolean?
-  movies      PersonMovies[]
-  name        String?
-  photo       String
-  profession  PersonProfession[]
-  sex         String?
-  spouses     PersonSpouses[]
-  // Date proprties
-  createdAt   DateTime           @default(now())
-  updatedAt   DateTime           @updatedAt
-}
-
-model review {
-  id             String   @id @default(auto()) @map("_id") @db.ObjectId
-  author         String
-  createdAt      DateTime @db.Date
-  date           DateTime @db.Date
-  id_            Int      @map("id")
-  movieId        Int
-  review         String
-  reviewDislikes Int
-  reviewLikes    Int
-  title          String?
-  updatedAt      DateTime @db.Date
-  /// Multiple data types found: Float: 2%, Int: 98% out of 1000 sampled entries
-  userRating     Json
-
-  @@index([movieId], map: "movieId_1")
-}
-
-model season {
-  id            String            @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt     DateTime?         @db.Date
-  episodes      SeasonsEpisodes[]
-  episodesCount Int
-  movieId       Int
-  number        Int
-  updatedAt     DateTime?         @db.Date
-
-  @@index([movieId], map: "movieId_1")
+  movieId                       String             @db.ObjectId()
+  images                        Image[]
+  videos                        Video[]
+  seasons                       Season[]
+  persons                       MovieOnPerson[]
+  facts                         MovieFact[]
+  review                        Review[]
+  // Sequels and prequels
+  movieHavingSequelsAndPrequels Movie              @relation("SequelsAndPrequels", fields: [movieId], references: [id], onUpdate: NoAction)
+  sequelsAndPrequels            Movie[]            @relation("SequelsAndPrequels")
+  // Similar movies
+  movieHavingSimilar            Movie              @relation("SimilarMovies", fields: [movieId], references: [id], onUpdate: NoAction)
+  similarMovies                 Movie[]            @relation("SimilarMovies")
+  collectionIds                 String[]           @db.ObjectId
+  collections                   Collection[]       @relation(fields: [collectionIds], references: [id])
 }
