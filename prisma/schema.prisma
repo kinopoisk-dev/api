@@ -7,213 +7,461 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum MovieType {
+  ANIMATED_SERIES // Мульт-сериал
+  ANIME // Аниме
+  CARTOON // Мультфильм
+  MINI_SERIES // Мини-сериал
+  MOVIE // Фильм
+  TV_SERIES // Сериал
+  TV_SHOW // ТВ-Шоу
+  VIDEO // Видео
+}
+
+enum MovieStatus {
+  ANNOUNCED // Анонсирован
+  CANCELLED // Отменен
+  COMPLETED // Выпущен
+  CONTINUES // Продолжается
+  FILMING // Сьемки
+  IN_PRODUCTION // В производстве
+  PILOT // Пилот
+  POST_PRODUCTION // Пост-продакшн
+  PRE_PRODUCTION // Пре-продакшен
+  RUMORS // Слухи
+}
+
+enum MovieGenre {
+  ACTION // боевик
+  ADULT // для взрослых
+  ADVENTURE // приключения
+  ANIME // аниме
+  BIOGRAPHY // биография
+  CARTOON // мультфильм
+  CEREMONY // церемония
+  CHILDREN // детский
+  COMEDY // комедия
+  CONCERT // концерт
+  CRIME // криминал
+  DETECTIVE // детектив
+  DOCUMENTARY // документальный
+  DRAMA // драма
+  FAMILY // семейный
+  FANTASY // фэнтези
+  FICTION // фантастика
+  FILM_NOIR // фильм-нуар
+  GAME // игра
+  HORROR // ужасы
+  MELODRAMA // мелодрама
+  MILITARY // военный
+  MUSIC // музыка
+  MUSICAL // мюзикл
+  NEWS // новости
+  REAL_TV // реальное ТВ
+  SHORT_FILM // короткометражка
+  SPORTS // спорт
+  STORY // история
+  TALK_SHOW // ток-шоу
+  THRILLER // триллер
+  WESTERN // вестерн
+}
+
+enum Country {
+  AUSTRALIA // Австралия
+  AUSTRIA // Австрия
+  AZERBAIJAN // Азербайджан
+  ALBANIA // Албания
+  ALGERIA // Алжир
+  US_VIRGIN_ISLANDS // Американские Виргинские острова
+  AMERICAN_SAMOA // Американское Самоа
+  ANGOLA // Ангола
+  ANDORRA // Андорра
+  ANTARCTICA // Антарктида
+  ANTIGUA_AND_BARBUDA // Антигуа и Барбуда
+  ANTILLES // Антильские Острова
+  ARGENTINA // Аргентина
+  ARMENIA // Армения
+  ARUBA // Аруба
+  AFGHANISTAN // Афганистан
+  BAHAMAS // Багамы
+  BANGLADESH // Бангладеш
+  BARBADOS // Барбадос
+  BAHRAIN // Бахрейн
+  BELARUS // Беларусь
+  BELIZE // Белиз
+  BELGIUM // Бельгия
+  BENIN // Бенин
+  BERMUDA // Бермуды
+  BURMA // Бирма
+  BULGARIA // Болгария
+  BOLIVIA // Боливия
+  BOSNIA // Босния
+  BOSNIA_AND_HERZEGOVINA // Босния и Герцеговина
+  BOTSWANA // Ботсвана
+  BRAZIL // Бразилия
+  BRUNEI_DARUSSALAM // Бруней-Даруссалам
+  BURKINA_FASO // Буркина-Фасо
+  BURUNDI // Бурунди
+  BHUTAN // Бутан
+  VANUATU // Вануату
+  VATICAN // Ватикан
+  CITY_UNITED_KINGDOM // Великобритания
+  HUNGARY // Венгрия
+  VENEZUELA // Венесуэла
+  VIRGIN_ISLANDS_UK // Виргинские Острова (Великобритания)
+  VIRGIN_ISLANDS_USA // Виргинские Острова (США)
+  OUTER_SMALL_ISLANDS_OF_THE_USA // Внешние малые острова США
+  VIETNAM // Вьетнам
+  VIETNAM_NORTH // Вьетнам Северный
+  GABON // Габон
+  HAITI // Гаити
+  GUYANA // Гайана
+  GAMBIA // Гамбия
+  GHANA // Гана
+  GUADELOUPE // Гваделупа
+  GUATEMALA // Гватемала
+  GUINEA // Гвинея
+  GUINEA_BISSAU // Гвинея-Бисау
+  GERMANY // Германия
+  GERMANY_GDR // Германия (ГДР)
+  GERMANY_FRG // Германия (ФРГ)
+  GIBRALTAR // Гибралтар
+  HONDURAS // Гондурас
+  HONG_KONG // Гонконг
+  GRENADA // Гренада
+  GREENLAND // Гренландия
+  GREECE // Греция
+  GEORGIA // Грузия
+  GUAM // Гуам
+  DENMARK // Дания
+  DOMINIKA // Доминика
+  DOMINICANA // Доминикана
+  EGYPT // Египет
+  ZAIRE // Заир
+  ZAMBIA // Замбия
+  WESTERN_SAHARA // Западная Сахара
+  ZIMBABWE // Зимбабве
+  ISRAEL // Израиль
+  INDIA // Индия
+  INDONESIA // Индонезия
+  JORDAN // Иордания
+  IRAQ // Ирак
+  IRAN // Иран
+  IRISH // Ирландия
+  ICELAND // Исландия
+  SPAIN // Испания
+  ITALY // Италия
+  YEMEN // Йемен
+  CAPE_VERDE // Кабо-Верде
+  KAZAKHSTAN // Казахстан
+  CAYMAN_ISLANDS // Каймановы острова
+  CAMBODIA // Камбоджа
+  CAMEROON // Камерун
+  CANADA // Канада
+  QATAR // Катар
+  KENYA // Кения
+  CYPRUS // Кипр
+  KYRGYZSTAN // Киргизия
+  KIRIBATI // Кирибати
+  CHINA // Китай
+  COLOMBIA // Колумбия
+  KOMORS // Коморы
+  CONGO // Конго
+  CONGO_DRC // Конго (ДРК)
+  KOREA // Корея
+  NORTH_KOREA // Корея Северная
+  SOUTH_KOREA // Корея Южная
+  KOSOVO // Косово
+  COSTA_RICA // Коста-Рика
+  IVORY_COAST // Кот-д’Ивуар (Берег Слоновой кости)
+  CUBA // Куба
+  KUWAIT // Кувейт
+  LAOS // Лаос
+  LATVIA // Латвия
+  LESOTHO // Лесото
+  LIBERIA // Либерия
+  LEBANON // Ливан
+  LIBYA // Ливия
+  LITHUANIA // Литва
+  LIECHTENSTEIN // Лихтенштейн
+  LUXEMBOURG // Люксембург
+  MAURITIUS // Маврикий
+  MAURITANIA // Мавритания
+  MADAGASCAR // Мадагаскар
+  MACAU // Макао
+  MACEDONIA // Македония
+  MALAWI // Малави
+  MALAYSIA // Малайзия
+  MALI // Мали
+  MALDIVES // Мальдивы
+  MALTA // Мальта
+  MOROCCO // Марокко
+  MARTINIQUE // Мартиника
+  MARSHALL_ISLANDS // Маршалловы острова
+  MEXICO // Мексика
+  MOZAMBIQUE // Мозамбик
+  MOLDOVA // Молдова
+  MONACO // Монако
+  MONGOLIA // Монголия
+  MONTSERRAT // Монтсеррат
+  MYANMAR // Мьянма
+  NAMIBIA // Намибия
+  NEPAL // Непал
+  NIGER // Нигер
+  NIGERIA // Нигерия
+  NETHERLANDS // Нидерланды
+  NICARAGUA // Никарагуа
+  NEW_ZEALAND // Новая Зеландия
+  NEW_CALEDONIA // Новая Каледония
+  NORWAY // Норвегия
+  UAE // ОАЭ
+  OCCUPIED_PALESTINIAN_TERRITORY // Оккупированная Палестинская территория
+  OMAN // Оман
+  ISLE // Остров Мэн
+  OF_MAN_COOK_ISLANDS // Острова Кука
+  PAKISTAN // Пакистан
+  PALAU // Палау
+  PALESTINE // Палестина
+  PANAMA_HAT // Панама
+  PAPUA_NEW_GUINEA // Папуа - Новая Гвинея
+  PARAGUAY // Парагвай
+  PERU // Перу
+  POLAND // Польша
+  PORTUGAL // Португалия
+  PUERTO_RICO // Пуэрто Рико
+  REUNION // Реюньон
+  THE_RUSSIAN_EMPIRE // Российская империя
+  RUSSIA // Россия
+  RWANDA // Руанда
+  ROMANIA // Румыния
+  USSR // СССР
+  USA // США
+  EL_SALVADOR // Сальвадор
+  SAMOA // Самоа
+  SAN_MARINO // Сан-Марино
+  SAUDI_ARABIA // Саудовская Аравия
+  SWAZILAND // Свазиленд
+  NORTHERN_MACEDONIA // Северная Македония
+  SEYCHELLES // Сейшельские острова
+  SENEGAL // Сенегал
+  SAINT_VINCENT_AND_THE_GRENADINES // Сент-Винсент и Гренадины
+  SAINT_LUCIA // Сент-Люсия
+  SERBIA // Сербия
+  SERBIA_AND_MONTENEGRO // Сербия и Черногория
+  SIAM // Сиам
+  SINGAPORE // Сингапур
+  SYRIA // Сирия
+  SLOVAKIA // Словакия
+  SLOVENIA // Словения
+  SOMALIA // Сомали
+  SUDAN // Судан
+  SURINAME // Суринам
+  SIERRA_LEONE // Сьерра-Леоне
+  TAJIKISTAN // Таджикистан
+  THAILAND // Таиланд
+  TAIWAN // Тайвань
+  TANZANIA // Танзания
+  TIMOR_LESTE // Тимор-Лесте
+  TOGO // Того
+  TONGA // Тонга
+  TRINIDAD_AND_TOBAGO // Тринидад и Тобаго
+  TUVALU // Тувалу
+  TUNISIA // Тунис
+  TURKMENISTAN // Туркменистан
+  TURKEY // Турция
+  UGANDA // Уганда
+  UZBEKISTAN // Узбекистан
+  UKRAINE // Украина
+  URUGUAY // Уругвай
+  FAROE_ISLANDS // Фарерские острова
+  FEDERATED_STATES_OF_MICRONESIA // Федеративные Штаты Микронезии
+  FIJI // Фиджи
+  PHILIPPINES // Филиппины
+  FINLAND // Финляндия
+  FRANCE // Франция
+  FRENCH_GUIANA // Французская Гвиана
+  FRENCH_POLYNESIA // Французская Полинезия
+  CROATIA // Хорватия
+  TSAR // ЦАР
+  CHAD // Чад
+  MONTENEGRO // Черногория
+  CZECH // Чехия
+  CZECHOSLOVAKIA // Чехословакия
+  CHILE // Чили
+  SWITZERLAND // Швейцария
+  SWEDEN // Швеция
+  SRI_LANKA // Шри-Ланка
+  ECUADOR // Эквадор
+  EQUATORIAL_GUINEA // Экваториальная Гвинея
+  ERITREA // Эритрея
+  ESTONIA // Эстония
+  ETHIOPIA // Эфиопия
+  SOUTH_AFRICA // ЮАР
+  YUGOSLAVIA // Югославия
+  YUGOSLAVIA_FR // Югославия (ФР)
+  JAMAICA // Ямайка
+  JAPAN // Япония
+}
+
+enum ImageType {
+  BACKDROP
+  POSTER
+  FRAME
+  LOGO
+}
+
 type CollectionsImage {
   url String?
 }
 
-type MoviesBackdrop {
-  id         String? @map("_id") @db.ObjectId
+type MovieBackdrop {
   previewUrl String?
   url        String?
 }
 
-type MoviesBudget {
-  id       String? @map("_id") @db.ObjectId
-  currency String?
-  /// Multiple data types found: Int: 99.2%, BigInt: 0.8% out of 125 sampled entries
-  value    Json?
+type MovieLogo {
+  url String?
 }
 
-type MoviesCountries {
+type MovieBudget {
+  currency String?
+  value    String
+}
+
+type MovieCountries {
   id   String @map("_id") @db.ObjectId
   name String
 }
 
-type MoviesDistributors {
+type MovieDistributors {
   distributor        String?
   distributorRelease String?
 }
 
-type MoviesExternalId {
-  id   String? @map("_id") @db.ObjectId
+type MovieExternalId {
   imdb String?
   tmdb Int?
-  /// Field referred in an index, but found no data to define the type.
-  kpHD Json?
+  kpHD String?
 }
 
-type MoviesFacts {
-  id      String   @map("_id") @db.ObjectId
+type MovieFacts {
   spoiler Boolean?
   type    String?
   value   String
 }
 
-type MoviesFees {
-  id     String            @map("_id") @db.ObjectId
-  usa    MoviesFeesUsa?
-  world  MoviesFeesWorld?
-  /// Field referred in an index, but found no data to define the type.
-  russia MoviesFeesRussia?
+type MovieFees {
+  usa    MovieFeesUsa?
+  world  MovieFeesWorld?
+  russia MovieFeesRussia?
 }
 
-type MoviesFeesRussia {
+type MovieFeesRussia {
   /// Field referred in an index, but found no data to define the type.
-  value Json?
+  value Int?
 }
 
-type MoviesFeesUsa {
-  id       String @map("_id") @db.ObjectId
+type MovieFeesUsa {
   currency String
   value    Int
 }
 
-type MoviesFeesWorld {
-  id       String @map("_id") @db.ObjectId
+type MovieFeesWorld {
   currency String
   value    Int
 }
 
-type MoviesGenres {
-  id   String @map("_id") @db.ObjectId
-  name String
-}
-
-type MoviesImages {
-  backdropsCount Int?
-  framesCount    Int
-  postersCount   Int?
-}
-
-type MoviesImagesInfo {
-  id          String @map("_id") @db.ObjectId
-  framesCount Int
-}
-
-type MoviesLogo {
-  id  String  @map("_id") @db.ObjectId
-  url String?
-}
-
-type MoviesNames {
-  id   String @map("_id") @db.ObjectId
-  name String
-}
-
-type MoviesNetworks {
+type MovieNetworks {
   name       String
   previewUrl String
   url        String
 }
 
-type MoviesPersons {
-  id           String  @map("_id") @db.ObjectId
+type MoviePersons {
   description  String?
   enName       String?
   enProfession String
-  id_          Int     @map("id")
   name         String?
   photo        String
   profession   String?
 }
 
-type MoviesPoster {
-  id         String? @map("_id") @db.ObjectId
+type MoviePoster {
   previewUrl String
   url        String
 }
 
-type MoviesPremiere {
-  id      String?   @map("_id") @db.ObjectId
+type MoviePremiere {
+  country String?
   bluray  DateTime? @db.Date
   cinema  DateTime? @db.Date
-  country String?
   digital DateTime? @db.Date
   dvd     DateTime? @db.Date
   russia  DateTime? @db.Date
   world   DateTime? @db.Date
 }
 
-type MoviesProductionCompanies {
-  id         String  @map("_id") @db.ObjectId
+type MovieProductionCompanies {
   name       String
   previewUrl String?
   url        String?
 }
 
-type MoviesRating {
-  id                 String? @map("_id") @db.ObjectId
-  /// Multiple data types found: Float: 1.6%, Int: 98.4% out of 989 sampled entries
-  await              Json?
-  /// Multiple data types found: Float: 2.7%, Int: 97.3% out of 989 sampled entries
-  filmCritics        Json?
-  /// Multiple data types found: Float: 40.6%, Int: 59.4% out of 1000 sampled entries
-  imdb               Json
-  /// Multiple data types found: Float: 9.7%, Int: 90.3% out of 1000 sampled entries
-  kp                 Json
-  /// Multiple data types found: Float: 0.5%, Int: 99.5% out of 989 sampled entries
-  russianFilmCritics Json?
-  /// Multiple data types found: Float: 50%, Int: 50% out of 4 sampled entries
-  tmdb               Json?
+type MovieRating {
+  kp                 Float
+  imdb               Float
+  await              Float?
+  filmCritics        Float?
+  russianFilmCritics Float?
+  tmdb               Float?
 }
 
-type MoviesSeasonsInfo {
-  id            String @map("_id") @db.ObjectId
+type MovieSeasonsInfo {
   episodesCount Int
   number        Int
 }
 
-type MoviesSequelsAndPrequels {
-  id              String                          @map("_id") @db.ObjectId
+type MovieSequelsAndPrequels {
   alternativeName String?
   enName          String?
-  id_             Int?                            @map("id")
   name            String?
-  poster          MoviesSequelsAndPrequelsPoster?
+  poster          MovieSequelsAndPrequelsPoster?
   type            String?
 }
 
-type MoviesSequelsAndPrequelsPoster {
-  id         String @map("_id") @db.ObjectId
+type MovieSequelsAndPrequelsPoster {
   previewUrl String
   url        String
 }
 
-type MoviesSimilarMovies {
-  id              String                    @map("_id") @db.ObjectId
+type MovieSimilarMovies {
   alternativeName String?
   enName          String?
-  id_             Int                       @map("id")
   name            String
-  poster          MoviesSimilarMoviesPoster
+  poster          MovieSimilarMoviesPoster
 }
 
-type MoviesSimilarMoviesPoster {
-  id         String @map("_id") @db.ObjectId
+type MovieSimilarMoviesPoster {
   previewUrl String
   url        String
 }
 
-type MoviesSpokenLanguages {
-  id     String @map("_id") @db.ObjectId
+type MovieSpokenLanguages {
   name   String
   nameEn String
 }
 
-type MoviesTechnology {
-  id      String  @map("_id") @db.ObjectId
+type MovieTechnology {
   has3D   Boolean
   hasImax Boolean
 }
 
-type MoviesVideos {
-  id       String?                @map("_id") @db.ObjectId
-  teasers  MoviesVideosTeasers[]
-  trailers MoviesVideosTrailers[]
+type MovieVideos {
+  teasers  MovieVideosTeasers[]
+  trailers MovieVideosTrailers[]
 }
 
-type MoviesVideosTeasers {
-  id   String @map("_id") @db.ObjectId
+type MovieVideosTeasers {
   name String
   site String
   size Int
@@ -221,8 +469,7 @@ type MoviesVideosTeasers {
   url  String
 }
 
-type MoviesVideosTrailers {
-  id   String  @map("_id") @db.ObjectId
+type MovieVideosTrailers {
   name String
   site String
   size Int?
@@ -230,8 +477,7 @@ type MoviesVideosTrailers {
   url  String
 }
 
-type MoviesVotes {
-  id                 String? @map("_id") @db.ObjectId
+type MovieVotes {
   await              Int?
   filmCritics        Int?
   imdb               Int
@@ -245,83 +491,65 @@ type OldmoviesData {
   id Json?
 }
 
-type PeopleBirthPlace {
-  id    String @map("_id") @db.ObjectId
+type PersonBirthPlace {
   value String
 }
 
-type PeopleDeathPlace {
-  id    String @map("_id") @db.ObjectId
+type PersonDeathPlace {
   value String
 }
 
-type PeopleFacts {
-  id    String @map("_id") @db.ObjectId
+type PersonFacts {
   value String
 }
 
-type PeopleMovies {
-  id              String  @map("_id") @db.ObjectId
+type PersonMovies {
   alternativeName String?
   description     String?
   general         Boolean
-  id_             Int     @map("id")
   name            String?
-  /// Multiple data types found: Float: 80.5%, Int: 19.5% out of 12253 sampled entries
-  rating          Json?
+  rating          Float?
 }
 
-type PeopleProfession {
-  id    String @map("_id") @db.ObjectId
+type PersonProfession {
   value String
 }
 
-type PeopleSpouses {
-  id             String? @map("_id") @db.ObjectId
+type PersonSpouses {
   children       Int
   divorced       Boolean
   divorcedReason String
-  id_            Int     @map("id")
   name           String
   relation       String
   sex            String?
 }
 
 type PersonsFacts {
-  id    String @map("_id") @db.ObjectId
   value String
 }
 
 type PersonsMovies {
-  id          String  @map("_id") @db.ObjectId
   description String
   general     Boolean
-  id_         Int     @map("id")
   name        String?
-  /// Multiple data types found: Float: 90.1%, Int: 9.9% out of 36846 sampled entries
-  rating      Json?
+  rating      Float?
 }
 
 type PersonsProfession {
-  id    String @map("_id") @db.ObjectId
   value String
 }
 
 type PersonsSpouses {
-  id             String  @map("_id") @db.ObjectId
   children       Int
   divorced       Boolean
   divorcedReason String
-  id_            Int     @map("id")
   name           String
   relation       String
   sex            String?
 }
 
 type SeasonsEpisodes {
-  id          String  @map("_id") @db.ObjectId
-  /// Multiple data types found: String: 11.6%, DateTime (Date): 88.4% out of 26280 sampled entries
-  date        Json?
+  date        DateTime?
   description String?
   enName      String?
   name        String?
@@ -340,145 +568,101 @@ model collection {
   @@index([title], map: "title_1")
 }
 
-model image {
+model Image {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt  DateTime? @db.Date
-  height     Int?
+  // String properties
+  url        String    @unique()
   language   String?
-  movieId    Int
   previewUrl String
-  type       String
-  updatedAt  DateTime? @db.Date
-  url        String    @unique(map: "url_1")
+  // Int properties
+  kpMovieId  Int
+  height     Int?
   width      Int?
+  // Enum properties
+  type       ImageType
+  // Date proprties
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  // Relations
+  movie      Movie     @relation(fields: [movieId], references: [id])
+  movieId    String    @db.ObjectId
 
-  @@index([movieId], map: "movieId_1")
+  @@index([movieId])
 }
 
-model movies {
-  id                  String                      @id @default(auto()) @map("_id") @db.ObjectId
-  ageRating           Int?
-  alternativeName     String?
-  backdrop            MoviesBackdrop?
-  budget              MoviesBudget?
-  /// Could not determine type: the field only had null or empty values in the sample set.
-  collections         Json?
-  countries           MoviesCountries[]
-  createdAt           DateTime?                   @db.Date
-  description         String?
-  distributors        MoviesDistributors?
-  enName              String?
-  externalId          MoviesExternalId
-  facts               MoviesFacts[]
-  fees                MoviesFees?
-  genres              MoviesGenres[]
-  id_                 Int                         @map("id")
-  images              MoviesImages?
-  imagesInfo          MoviesImagesInfo?
-  /// Could not determine type: the field only had null or empty values in the sample set.
-  lists               Json?
-  logo                MoviesLogo?
-  movieLength         Int?
+model Movie {
+  // Id properties
+  id                  String                     @id @default(auto()) @map("_id") @db.ObjectId
+  kpId                int                        @unique
+  externalId          MovieExternalId
+  // String properties
   name                String?
-  names               MoviesNames[]
-  networks            MoviesNetworks[]
-  persons             MoviesPersons[]
-  poster              MoviesPoster
-  premiere            MoviesPremiere?
-  productionCompanies MoviesProductionCompanies[]
-  rating              MoviesRating
+  names               String[]
+  enName              String?
+  alternativeName     String?
+  description         String?
   ratingMpaa          String?
-  seasonsInfo         MoviesSeasonsInfo[]
-  sequelsAndPrequels  MoviesSequelsAndPrequels[]
   shortDescription    String?
-  similarMovies       MoviesSimilarMovies[]
   slogan              String?
-  spokenLanguages     MoviesSpokenLanguages[]
-  status              String?
-  subType             String?
-  technology          MoviesTechnology?
-  ticketsOnSale       Boolean?
-  type                String
-  typeNumber          Int?
-  updateDates         DateTime[]                  @db.Date
-  updatedAt           DateTime                    @db.Date
-  videos              MoviesVideos?
-  votes               MoviesVotes
+  //Int properties
   year                Int?
-  /// Field referred in an index, but found no data to define the type.
-  ratingAgeLimits     Json?
-
-  @@index([externalId.imdb], map: "externalId.imdb_1")
-  @@index([externalId.tmdb], map: "externalId.tmdb_1")
-  @@index([alternativeName], map: "alternativeName_1")
-  @@index([enName], map: "enName_1")
-  @@index([names.name], map: "names.name_1")
-  @@index([typeNumber], map: "typeNumber_1")
-  @@index([subType], map: "subType_1")
-  @@index([status], map: "status_1")
-  @@index([year], map: "year_1")
-  @@index([rating.kp], map: "rating.kp_1")
-  @@index([rating.imdb], map: "rating.imdb_1")
-  @@index([rating.tmdb], map: "rating.tmdb_1")
-  @@index([votes.kp], map: "votes.kp_1")
-  @@index([votes.imdb], map: "votes.imdb_1")
-  @@index([votes.tmdb], map: "votes.tmdb_1")
-  @@index([ratingAgeLimits], map: "ratingAgeLimits_1")
-  @@index([genres.name], map: "genres.name_1")
-  @@index([countries.name], map: "countries.name_1")
-  @@index([networks.name], map: "networks.name_1")
-  @@index([persons.id], map: "persons.id_1")
-  @@index([budget.value], map: "budget.value_1")
-  @@index([fees.world.value], map: "fees.world.value_1")
-  @@index([fees.russia.value], map: "fees.russia.value_1")
-  @@index([fees.usa.value], map: "fees.usa.value_1")
-  @@index([premiere.world], map: "premiere.world_1")
-  @@index([premiere.russia], map: "premiere.russia_1")
-  @@index([premiere.digital], map: "premiere.digital_1")
-  @@index([externalId.kpHD], map: "externalId.kpHD_1")
-  @@index([type], map: "type_1")
-  @@index([name], map: "name_1")
-  @@index([externalId], map: "externalId_1")
-  @@index([rating.filmCritics], map: "rating.filmCritics_1")
-  @@index([rating.russianFilmCritics], map: "rating.russianFilmCritics_1")
-  @@index([rating.await], map: "rating.await_1")
-  @@index([votes.filmCritics], map: "votes.filmCritics_1")
-  @@index([votes.russianFilmCritics], map: "votes.russianFilmCritics_1")
-  @@index([votes.await], map: "votes.await_1")
-  @@index([productionCompanies.name], map: "productionCompanies.name_1")
-  @@index([similarMovies.id], map: "similarMovies.id")
-  @@index([sequelsAndPrequels.id], map: "sequelsAndPrequels.id")
+  movieLength         Int?
+  ageRating           Int?
+  // Enum properties
+  type                MovieType?
+  status              MovieStatus?
+  genres              MovieGenre[]
+  countries           Country[]
+  // Type properties
+  poster              MoviePoster
+  backdrop            MovieBackdrop?
+  budget              MovieBudget?
+  logo                MovieLogo?
+  distributors        MovieDistributors?
+  votes               MovieVotes
+  facts               MovieFacts[]
+  fees                MovieFees?
+  networks            MovieNetworks[]
+  premiere            MoviePremiere?
+  technology          MovieTechnology?
+  spokenLanguages     MovieSpokenLanguages[]
+  productionCompanies MovieProductionCompanies[]
+  persons             MoviePersons[]
+  rating              MovieRating
+  seasonsInfo         MovieSeasonsInfo[]
+  sequelsAndPrequels  MovieSequelsAndPrequels[]
+  similarMovies       MovieSimilarMovies[]
+  videos              MovieVideos?
+  // Date proprties
+  createdAt           DateTime                   @default(now())
+  updatedAt           DateTime                   @updatedAt
+  // Relations
+  images              Image[]
 }
 
-model people {
+model Person {
   id          String             @id @default(auto()) @map("_id") @db.ObjectId
+  kpId        int                @unique
   age         Int?
-  birthPlace  PeopleBirthPlace[]
+  birthPlace  PersonBirthPlace[]
   birthday    DateTime?          @db.Date
   countAwards Int?
   createdAt   DateTime?          @db.Date
   death       DateTime?          @db.Date
-  deathPlace  PeopleDeathPlace[]
+  deathPlace  PersonDeathPlace[]
   enName      String?
-  facts       PeopleFacts[]
+  facts       PersonFacts[]
   growth      Int?
-  id_         Int                @map("id")
   isParse     Boolean?
-  movies      PeopleMovies[]
+  movies      PersonMovies[]
   name        String?
   photo       String
-  profession  PeopleProfession[]
+  profession  PersonProfession[]
   sex         String?
-  spouses     PeopleSpouses[]
-  updatedAt   DateTime?          @db.Date
-
-  @@index([sex], map: "sex_1")
-  @@index([birthday], map: "birthday_1")
-  @@index([death], map: "death_1")
-  @@index([age], map: "age_1")
-  @@index([movies.id], map: "movies.id_1")
-  @@index([name], map: "name_1")
-  @@index([spouses.id], map: "spouses.id_1")
+  spouses     PersonSpouses[]
+  // Date proprties
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
 }
 
 model review {
